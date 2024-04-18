@@ -2,25 +2,22 @@ import sys
 import csv
 from math import log2
 
-def entropy(subset):
+def entropy(subset, target_attribute):
     total = len(subset)
     if total == 0:
         return 0
-    yes = sum(1 for item in subset if item['PlayTennis'] == 'Yes')
-    no = total - yes
-    p_yes = yes / total
-    p_no = no / total
-    entropy_yes = -p_yes*log2(p_yes) if p_yes > 0 else 0
-    entropy_no = -p_no*log2(p_no) if p_no > 0 else 0
-    return entropy_yes + entropy_no
+    class_counts = {val: 0 for val in set(item[target_attribute] for item in subset)}
+    for item in subset:
+        class_counts[item[target_attribute]] += 1
+    return sum((-count/total) * log2(count/total) for count in class_counts.values() if count > 0)
 
-def info_gain(data, attribute):
-    total_entropy = entropy(data)
+def info_gain(data, attribute, target_attribute):
+    total_entropy = entropy(data, target_attribute)
     attribute_values = set(item[attribute] for item in data)
     weighted_entropy = 0
     for value in attribute_values:
         subset = [item for item in data if item[attribute] == value]
-        weighted_entropy += (len(subset) / len(data)) * entropy(subset)
+        weighted_entropy += (len(subset) / len(data)) * entropy(subset, target_attribute)
     return total_entropy - weighted_entropy
 
 def id3(data, attributes, target_attribute):
@@ -28,13 +25,14 @@ def id3(data, attributes, target_attribute):
     if len(target_values) == 1:
         return next(iter(target_values))  # All examples are the same class
     if not attributes:
-        return max(target_values, key=lambda val: sum(item[target_attribute] == val for item in data))
-    best_attribute = max(attributes, key=lambda attr: info_gain(data, attr))
+        most_common = max(target_values, key=lambda val: sum(item[target_attribute] == val for item in data))
+        return most_common
+    best_attribute = max(attributes, key=lambda attr: info_gain(data, attr, target_attribute))
     tree = {best_attribute: {}}
-    attributes = [attr for attr in attributes if attr != best_attribute]
+    remaining_attributes = [attr for attr in attributes if attr != best_attribute]
     for value in set(item[best_attribute] for item in data):
         subset = [item for item in data if item[best_attribute] == value]
-        subtree = id3(subset, attributes, target_attribute)
+        subtree = id3(subset, remaining_attributes, target_attribute)
         tree[best_attribute][value] = subtree
     return tree
 
@@ -64,10 +62,12 @@ def main():
     output_filepath = sys.argv[2]
     data = read_data(input_filepath)
     attributes = list(data[0].keys())
-    attributes.remove('PlayTennis')
-    attributes.remove('ExampleID')  # Assuming we don't want to use ExampleID as an attribute
+    target_attribute = attributes[-1]  # Assume last column is the target attribute
+    attributes.remove(target_attribute)  # Use all other attributes for decision making
+    if 'ExampleID' in attributes:
+        attributes.remove('ExampleID')  # Remove ExampleID from attributes as it's not informative
 
-    decision_tree = id3(data, attributes, 'PlayTennis')
+    decision_tree = id3(data, attributes, target_attribute)
     
     with open(output_filepath, 'w') as file:
         print_tree(decision_tree, file=file)
