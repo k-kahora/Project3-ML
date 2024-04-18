@@ -1,3 +1,7 @@
+# Malcolm Kahora, Benjamin Fryc, Raj Singh
+# CSC 426-01: Project 3 - ID3 Algorithm
+# Dr. Bloodgood
+# 4/19/24
 import sys
 import csv
 from math import log2
