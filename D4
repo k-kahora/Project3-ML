@@ -1,19 +1,31 @@
-Outlook:
-	Overcast:
-		Yes
-	Rain:
-		Temperature:
-			Cool:
+Temperature:
+	Cool:
+		Outlook:
+			Rain:
 				Wind:
 					Strong:
 						No
 					Weak:
 						Yes
-			Mild:
+			Overcast:
 				Yes
-	Sunny:
+			Sunny:
+				Yes
+	Hot:
 		Humidity:
 			Normal:
 				Yes
 			High:
 				No
+	Mild:
+		Outlook:
+			Rain:
+				Yes
+			Overcast:
+				Yes
+			Sunny:
+				Humidity:
+					Normal:
+						Yes
+					High:
+						No

@@ -2,14 +2,10 @@ Outlook:
 	Overcast:
 		Yes
 	Rain:
-		Temperature:
-			Cool:
-				Wind:
-					Strong:
-						No
-					Weak:
-						Yes
-			Mild:
+		Wind:
+			Strong:
+				No
+			Weak:
 				Yes
 	Sunny:
 		Humidity:
