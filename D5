@@ -1,0 +1,44 @@
+﻿Team 5 - Malcolm Kahora, Benjamin Fryc, Raj Singh
+CSC 426-01
+Project 3
+
+
+D5
+
+
+What was easy about this assignment?
+
+
+The pseudo code provided a good framework for how to implement the algorithm. Once we completed the information gain function, the easiest part was actually implementing the tree.
+
+
+What was challenging about this assignment, or parts that you couldn’t get working correctly?
+
+
+It was challenging to implement the information gain aspect of the algorithm, first finding all the possible values of each attribute and then using them to calculate the IG accordingly. 
+
+
+What did you like about this assignment?
+
+
+We liked how this algorithm was by far the most accurate and intuitive. We were able to see the tree and visualize this algorithm more clearly.
+
+
+What did you dislike about this assignment?
+
+
+The worst part about this assignment was calculating the entropy to get the information gain, and then using that measure to get the best attribute. We found this to be quite tedious and the most complex part about this assignment.
+
+
+
+
+How did your team function? Include details regarding what each team member contributed, how the team communicated with each other, and how team software development & design was accomplished.
+
+
+We began by sharing the best way to communicate, creating a group chat and assigning specific parts of the assignment to each member. We held zoom meetings to begin the project and discuss what course of action we should take and how to split up the parts of the assignment. We conversed about how each of our ends were going and what still needed to be implemented.  Ben created the original code that worked with Task1 and Malcolm extended it to work with enjoy sport as well as making the tree output more readable.  Raj completed the written deliverables of the project.
+
+
+What did you learn from this assignment?
+
+
+Through this assignment, we were able to easily see the advantages and disadvantages along with some of the limitations of using a decision tree as compared to other algorithms.
